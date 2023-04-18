@@ -1,23 +1,26 @@
-version: '3.9'
-services:
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: joinville-doa
-    volumes:
-      - dbdata:/var/lib/postgresql/data
-  web:
-    build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    volumes:
-      - .:/app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
+  version: '3.9'
+  services:
+    db:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: <%= ENV['DB_USERNAME'] %>
+        POSTGRES_PASSWORD: <%= ENV['DB_PASSWORD'] %>
+        POSTGRES_DB: <%= ENV['DB_NAME'] %>
+      volumes:
+        - dbdata:/var/lib/postgresql/data
+        - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    web:
+      build: .
+      command: bundle exec rails s -p 3000 -b '0.0.0.0'
+      volumes:
+        - .:/app
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+      env_file:
+      - .env
 
-volumes:
-  dbdata:
+  volumes:
+    dbdata:

@@ -1,20 +1,21 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host:     <%= ENV['DB_HOST'] %>
+  pool: 40
 
 development:
   <<: *default
-  database: app_development
+  database: joinville-doa-development
 
 test:
   <<: *default
-  database: app_test
+  database: joinville-doa-test
 
 production:
   <<: *default
-  database: app_production
+  database: joinville-doa-production
   username: app
-  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
