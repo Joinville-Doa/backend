@@ -17,5 +17,5 @@ test:
 
 production:
   <<: *default
-  database: app_production
+  database: joinville-doa-production
   username: app
