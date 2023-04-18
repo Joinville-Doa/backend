@@ -1,24 +1,38 @@
-# README
+# Joinville Doa
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Esse repositório se dedica ao projeto de conclusão do Curso de Análise e Desenvolvimento de Sistemas,
+na faculdade Senac em Joinville-SC.
 
-Things you may want to cover:
+O Projeto é desenvolvido em ruby utilizando o framework Ruby on Rails, construindo API's utilizando GraphQL como arquitetura (ou linguagem de consulta) para nossas API's.
 
-* Ruby version
+Como buildar o projeto:
 
-* System dependencies
+## Dependências
 
-* Configuration
+* Versão do Docker:
+    - 23.0.1
 
-* Database creation
+* Versão do Docker-compose:
+    - v2.3.3
 
-* Database initialization
+* Versão do Ruby:
+    - 3.2.1
 
-* How to run the test suite
+* Versão do Rails:
+    - 7.0.4.3
 
-* Services (job queues, cache servers, search engines, etc.)
+* Versão do Postgres:
+    - 15.2
 
-* Deployment instructions
+## Configuração
 
-* ...
+* Após instalar o docker e o docker-compose basta executar o comando `make setup` que ele irá fazer todo o setup da aplicação, e posteriormente executar o comando `make up` para subir a aplicação.
+
+
+* comandos
+    - `make setup`: Faz a configuração da aplicação
+    - `make up` Sobe a aplicação
+    - `make down` Força que a aplicação seja encerrada
+    - `make restart` Reinicia a aplicação
+    - `make bash-web` Entra no bash do container da aplicação
+    - `make bash-db` Entra no bash do dontainer de banco de dados
