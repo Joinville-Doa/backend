@@ -30,7 +30,7 @@ Como buildar o projeto:
 
 
 * comandos
-    - `make setup`: Faz a configuração da aplicação
+    - `make setup` Faz a configuração da aplicação
     - `make up` Sobe a aplicação
     - `make down` Força que a aplicação seja encerrada
     - `make restart` Reinicia a aplicação
