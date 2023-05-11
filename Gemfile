@@ -27,8 +27,9 @@ end
 
 group :development do
   gem "web-console"
-  gem "graphiql-rails"
   gem "rubocop", require: false
+  gem 'byebug'
+
 end
 
 group :test do
