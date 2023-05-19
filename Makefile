@@ -6,7 +6,7 @@ WEB_CONTAINER = joinville-doa-backend-web-1
 
 # Comandos
 setup:
-	sudo docker compose build
+	sudo docker compose build --no-cache
 	sudo docker compose run --rm web rails db:create db:migrate db:seed
 
 bash-db:
