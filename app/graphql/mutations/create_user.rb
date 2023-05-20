@@ -1,5 +1,7 @@
 module Mutations
     class CreateUser < BaseMutation
+      include Mutations::Concerns::UserValidation
+
       argument :name, String, required: true
       argument :email, String, required: true
       argument :password, String, required: true
@@ -13,19 +15,24 @@ module Mutations
       field :errors, [String], null: false
 
       def resolve(name:, email:, password:, password_confirmation:, document_number:, phone:, accept_terms_of_use:, date_of_birth:)
+        validate_password(password: password, password_confirmation: password_confirmation)
+        validate_email(email: email)
+        valide_document_number(document_number: document_number)
+        validate_accept_terms_of_use(accept_terms_of_use: accept_terms_of_use)
+
         user = User.new(
-          name: name,
-          email: email,
+          name: name_normalize(name),
+          email: email_normalize(email),
           password: password,
           password_confirmation: password_confirmation,
           document_number: document_number,
-          phone: phone,
+          phone: regex_phone(phone),
           accept_terms_of_use: accept_terms_of_use,
           date_of_birth: date_of_birth
         )
 
         if user.save
-          { user: user, errors: [] }
+          { user: user, message: ["User created successfully"]}
         else
           { user: nil, errors: user.errors.full_messages }
         end
