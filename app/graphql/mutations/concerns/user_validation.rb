@@ -40,6 +40,10 @@ module Mutations
       def regex_phone(phone)
         phone.gsub(/[^0-9]/, '')
       end
+
+      def regex_document_number(document_number)
+        document_number.gsub(/[^0-9]/, '')
+      end
     end
   end
 end

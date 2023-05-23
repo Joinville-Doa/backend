@@ -25,7 +25,7 @@ module Mutations
           email: email_normalize(email),
           password: password,
           password_confirmation: password_confirmation,
-          document_number: document_number,
+          document_number: regex_document_number(document_number),
           phone: regex_phone(phone),
           accept_terms_of_use: accept_terms_of_use,
           date_of_birth: date_of_birth
@@ -34,8 +34,11 @@ module Mutations
         if user.save
           { user: user, message: ["User created successfully"]}
         else
-          { user: nil, errors: user.errors.full_messages }
+          { user: nil, message: ["User not created"] }
         end
+
+      rescue ActiveRecord::RecordInvalid => e
+        GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
       end
     end
   end

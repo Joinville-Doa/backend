@@ -16,19 +16,21 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(id:, **attributes)
-      validate_password(attributes[:password], attributes[:password_confirmation])
-      validate_email(attributes[:email])
-      valide_document_number(attributes[:document_number])
+      validate_password(password: attributes[:password], password_confirmation: attributes[:password_confirmation])
+      validate_email(email: attributes[:email])
+      valide_document_number(document_number: attributes[:document_number])
+      validate_accept_terms_of_use(accept_terms_of_use: attributes[:accept_terms_of_use])
 
       attributes[:name] = name_normalize(attributes[:name])
       attributes[:email] = email_normalize(attributes[:email])
       attributes[:phone] = regex_phone(attributes[:phone])
+      attributes[:document_number] = regex_document_number(attributes[:document_number])
 
       user = User.find_by(id: id)
       if user.update(attributes)
-        { user: user, errors: [] }
+        { user: user, message: ["User updated successfully"] }
       else
-        { user: nil, errors: user.errors.full_messages }
+        { user: nil, message: ["User not updated"] }
       end
     end
   end
