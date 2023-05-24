@@ -13,6 +13,7 @@ module Mutations
 
       field :user, Types::UserType, null: true
       field :errors, [String], null: false
+      field :message, [String], null: false
 
       def resolve(name:, email:, password:, password_confirmation:, document_number:, phone:, accept_terms_of_use:, date_of_birth:)
         validate_password(password: password, password_confirmation: password_confirmation)
@@ -34,7 +35,7 @@ module Mutations
         if user.save
           { user: user, message: ["User created successfully"]}
         else
-          { user: nil, message: ["User not created"] }
+          { user: nil, errors: ["User not created"] }
         end
 
       rescue ActiveRecord::RecordInvalid => e

@@ -14,6 +14,7 @@ module Mutations
 
     field :user, Types::UserType, null: true
     field :errors, [String], null: false
+    field :message, [String], null: false
 
     def resolve(id:, **attributes)
       validate_password(password: attributes[:password], password_confirmation: attributes[:password_confirmation])
@@ -26,12 +27,17 @@ module Mutations
       attributes[:phone] = regex_phone(attributes[:phone])
       attributes[:document_number] = regex_document_number(attributes[:document_number])
 
-      user = User.find_by(id: id)
-      if user.update(attributes)
-        { user: user, message: ["User updated successfully"] }
+      user = User.find_by(id: id) rescue nil
+
+      if user.present?
+        user.update!(attributes)
+        { user: user, message: ["Usuário atualizado com sucesso"], status: 200 }
       else
-        { user: nil, message: ["User not updated"] }
+        { user: nil, errors: ["Usuário não encontrado"], status: 404 }
       end
+
+      rescue ActiveRecord::RecordNotFound => e
+        { user: nil, message: [e.message] }
     end
   end
 end

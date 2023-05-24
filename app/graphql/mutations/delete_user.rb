@@ -11,7 +11,7 @@ module Mutations
       if user.destroy
         { user: user, message: ["User deleted successfully"] }
       else
-        { user: nil, message: ["User not deleted"] }
+        { user: nil, errors: ["User not deleted"] }
       end
     end
   end
