@@ -13,7 +13,6 @@ module Mutations
     argument :date_of_birth, String, required: true
 
     field :user, Types::UserType, null: true
-    field :errors, [String], null: false
     field :message, [String], null: false
 
     def resolve(id:, **attributes)
@@ -33,11 +32,11 @@ module Mutations
         user.update!(attributes)
         { user: user, message: ["Usuário atualizado com sucesso"], status: 200 }
       else
-        { user: nil, errors: ["Usuário não encontrado"], status: 404 }
+        { user: nil, message: ["Usuário não encontrado"], status: 404 }
       end
 
-      rescue ActiveRecord::RecordNotFound => e
-        { user: nil, message: [e.message] }
+    rescue ActiveRecord::RecordInvalid => e
+      GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
     end
   end
 end

@@ -1,27 +1,16 @@
-# frozen_string_literal: true
-
 class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+  skip_before_action :verify_authenticity_token, only: [:create] # Se necessário, desative a verificação de autenticidade CSRF para a rota de login GraphQL
 
-  # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  respond_to :json
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    mutation = Mutations::LoginUser.new(object: nil, field: nil, context: { request: request })
+    result = mutation.resolve(email: params[:user][:email], password: params[:user][:password])
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+    if result[:user]
+      render json: { user: result[:user] }
+    else
+      render json: { errors: result[:errors] }, status: :unprocessable_entity
+    end
+  end
 end
