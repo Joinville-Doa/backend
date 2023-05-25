@@ -25,11 +25,13 @@ module Mutations
     def generate_token(user)
       payload = { user_id: user.id }
       secret_key = Rails.application.secrets.secret_key_base
-      expiration_time = 1.hours.from_now.to_i
+      expiration_time = 1.hour.from_now.to_i
 
-      token = JWT.encode(payload, secret_key, 'HS256')
+      token = JWT.encode(payload, secret_key, 'HS256', exp: expiration_time)
+      user.update(authentication_token: token)
+      user.reload
+
       token
     end
-
   end
 end
