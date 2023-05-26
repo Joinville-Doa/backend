@@ -16,6 +16,8 @@ module Types
 
     def user(id:)
       User.find(id)
+      rescue ActiveRecord::RecordNotFound => e
+        GraphQL::ExecutionError.new("Usuário não existe")
     end
 
     def user_by_email(email:)
