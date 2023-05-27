@@ -1,23 +1,23 @@
 module Mutations
-  class UpdateCategory < Mutations::BaseMutation
+  class UpdateCategory < BaseMutation
+    include Mutations::Concerns::UserValidation
+
     argument :id, ID, required: true
-    argument :category, Types::CategoryInputType, required: true
+    argument :name, String, required: true
 
     field :category, Types::CategoryType, null: true
-    field :errors, [String], null: false
+    field :message, [String], null: false
 
-    def resolve(id:, category:)
-      existing_category = Category.find_by(id: id)
+    def resolve(id:, name:)
+      category = Category.find_by(id: id) rescue nil
 
-      if existing_category
-        if existing_category.update(category.to_h)
-          { category: existing_category, errors: [] }
-        else
-          { category: nil, errors: existing_category.errors.full_messages }
-        end
+      if category.present?
+        category.update(name: name_normalize(name))
+        { category: category, message: ["Categoria atualizado com sucesso"] }
       else
-        { category: nil, errors: ['Classificado não encontrado'] }
+        { category: nil, message: ["Categoria não encontrada"]}
       end
+      # Eletrodomésticos
     end
   end
 end

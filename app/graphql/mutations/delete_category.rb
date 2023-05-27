@@ -1,21 +1,18 @@
 module Mutations
-  class DeleteCategory < Mutations::BaseMutation
+  class DeleteCategory < BaseMutation
     argument :id, ID, required: true
 
     field :success, Boolean, null: false
-    field :errors, [String], null: false
+    field :message, [String], null: false
 
     def resolve(id:)
-      category = Category.find_by(id: id)
+      category = Category.find_by(id: id) rescue nil
 
-      if category
-        if category.destroy
-          { success: true, errors: [] }
-        else
-          { success: false, errors: category.errors.full_messages }
-        end
+      if category.present?
+        category.destroy
+        { success: true, message: ["Categoria excluída"] }
       else
-        { success: false, errors: ['Categoria não encontrada'] }
+        { success: false, message: ['Categoria não encontrada'] }
       end
     end
   end

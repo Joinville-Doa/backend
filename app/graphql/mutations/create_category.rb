@@ -1,17 +1,20 @@
 module Mutations
-  class CreateCategory < Mutations::BaseMutation
-    argument :category, Types::CategoryInputType, required: true
+  class CreateCategory < BaseMutation
+    include Mutations::Concerns::UserValidation
+
+    argument :name, String, required: true
 
     field :category, Types::CategoryType, null: true
-    field :errors, [String], null: false
+    field :message, [String], null: false
 
-    def resolve(category:)
-      new_category = Category.new(category.to_h)
+    def resolve(name:)
+
+      new_category = Category.new(name: name_normalize(name))
 
       if new_category.save
-        { category: new_category, errors: [] }
+        { category: new_category, message: [] }
       else
-        { category: nil, errors: new_category.errors.full_messages }
+        { category: nil, message: new_category.message.full_messages }
       end
     end
   end

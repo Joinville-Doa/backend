@@ -1,21 +1,18 @@
 module Mutations
-  class DeleteDonation < Mutations::BaseMutation
+  class DeleteDonation < BaseMutation
     argument :id, ID, required: true
 
     field :success, Boolean, null: false
-    field :errors, [String], null: false
+    field :message, [String], null: false
 
     def resolve(id:)
-      donation = Donation.find_by(id: id)
+      donation = Donation.find_by(id: id) rescue nil
 
-      if donation
-        if donation.destroy
-          { success: true, errors: [] }
-        else
-          { success: false, errors: donation.errors.full_messages }
-        end
+      if donation.present?
+        donation.destroy
+          { success: true, message: ["Classificado deletado com sucesso"] }
       else
-        { success: false, errors: ['Classificado não encontrado'] }
+        { success: false, message: ["Classificado não encontrado"] }
       end
     end
   end

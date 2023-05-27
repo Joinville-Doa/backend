@@ -6,8 +6,12 @@ module Types
     field :description, String, null: false
     field :phone_contact, String, null: false
     field :new_product, Boolean, null: false
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :images, [String], null: false
+    field :created_at, String, null: false
+    field :updated_at, String, null: false
+    field :image_one, String, null: false
+    field :image_two, String, null: false
+    field :image_three, String, null: false
+    field :image_four, String, null: false
+    field :image_five, String, null: false
   end
 end
