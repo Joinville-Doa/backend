@@ -16,7 +16,8 @@ gem "bootsnap", require: false
 gem "graphql"
 gem "graphiql-rails"
 gem "devise"
-gem 'jwt'
+gem "jwt"
+gem "sqlite3", "~> 1.4"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
