@@ -15,9 +15,11 @@ module Mutations
       field :message, [String], null: false
 
       def resolve(name:, email:, password:, password_confirmation:, document_number:, phone:, accept_terms_of_use:, date_of_birth:)
+        current_user = User.find_by(id: id) rescue nil
+
         validate_password(password: password, password_confirmation: password_confirmation)
-        validate_email(email: email)
-        valide_document_number(document_number: document_number)
+        validate_email(email: email, current_user: current_user)
+        valide_document_number(document_number: document_number, current_user: current_user)
         validate_accept_terms_of_use(accept_terms_of_use: accept_terms_of_use)
 
         user = User.new(
