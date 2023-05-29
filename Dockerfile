@@ -23,7 +23,7 @@ RUN gem install bundler && bundle install
 COPY . .
 
 # Define a porta a ser exposta
-EXPOSE 3000
+EXPOSE 8080
 
 # Roda os comandos de inicialização do projeto
 CMD ["rails", "server", "-b", "0.0.0.0"]
