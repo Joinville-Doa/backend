@@ -22,5 +22,8 @@ RUN gem install bundler && bundle install
 # Copia todos os arquivos do projeto para o container
 COPY . .
 
+# Define a porta a ser exposta
+EXPOSE 3000
+
 # Roda os comandos de inicialização do projeto
 CMD ["rails", "server", "-b", "0.0.0.0"]
