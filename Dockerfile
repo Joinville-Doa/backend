@@ -17,7 +17,7 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 
 # Instala as gems do projeto
-RUN gem install bundler && bundle install
+RUN gem install bundler && bundle install && rails db:migrate
 
 # Copia todos os arquivos do projeto para o container
 COPY . .
