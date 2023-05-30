@@ -18,6 +18,7 @@ gem "graphiql-rails"
 gem "devise"
 gem "jwt"
 gem "sqlite3", "~> 1.4"
+gem 'rack-cors'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
