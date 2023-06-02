@@ -13,5 +13,8 @@ module Types
     field :image_three, String, null: false
     field :image_four, String, null: false
     field :image_five, String, null: false
+    field :total, Integer, null: false
+    field :limit, Integer, null: false
+    field :offset, Integer, null: false
   end
 end
