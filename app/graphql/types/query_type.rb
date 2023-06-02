@@ -18,7 +18,11 @@ module Types
       description 'Procura uma categoria por nome'
       argument :name, String, required: true
     end
-    field :donations, [Types::DonationType], null: false
+    field :donations, [Types::DonationType], null: false do
+      description 'Lista todos os classificados'
+      argument :limit, Integer, required: false
+      argument :offset, Integer, required: false
+    end
     field :donation, Types::DonationType, null: true do
       description 'Procura um classificado por ID'
       argument :id, ID, required: true
@@ -63,8 +67,13 @@ module Types
       Category.find_by(name: name)
     end
 
-    def donations
-      Donation.all
+    def donations(limit: nil, offset: nil)
+      donations = Donation.all
+      total = donations.count
+
+      if limit && offset
+        donations = donations.limit(limit).offset(offset)
+      end
     end
 
     def donation(id:)
