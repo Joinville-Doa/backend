@@ -18,8 +18,6 @@ module Mutations
     field :message, [String], null: false
 
     def resolve(title:, description:, user_id:, phone_contact:, new_product:, category_id:, image_one:, image_two: nil, image_three: nil, image_four: nil, image_five: nil)
-      puts "\n \n \n \n \n \n \n Antes de salvar no de começar a criar  \n \n \n \n \n \n \n "
-
       new_donation = Donation.new(
         title: name_normalize(title),
         description: description,
@@ -33,13 +31,10 @@ module Mutations
         image_four: image_four,
         image_five: image_five
       )
-      puts "\n \n \n \n \n \n \n Antes de salvar no IF \n \n \n \n \n \n \n "
 
       if new_donation.save
-        puts "\n \n \n \n \n \n \n Classificado criado com sucesso \n \n \n \n \n \n \n "
         { donation: new_donation, message: ["Classificado criado com sucesso"] }
       else
-        puts "\n \n \n \n \n \n \n Houve um erro ao criar o classificado \n \n \n \n \n \n \n "
         { donation: nil, message: ["Houve um erro ao criar o classificado"] }
       end
     end
