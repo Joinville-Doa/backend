@@ -16,5 +16,6 @@ module Types
     field :total, Integer, null: false
     field :limit, Integer, null: false
     field :offset, Integer, null: false
+    field :category_id, ID, null: false
   end
 end
