@@ -17,5 +17,6 @@ module Types
     field :limit, Integer, null: false
     field :offset, Integer, null: false
     field :category_id, ID, null: false
+    field :has_whatsapp, Boolean, null: false
   end
 end
