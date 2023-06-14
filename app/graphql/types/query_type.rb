@@ -9,6 +9,10 @@ module Types
       description 'Procura um usuário por email'
       argument :email, String, required: true
     end
+    field :user_by_token, Types::UserType, null: true do
+      description 'Procura um usuário por token'
+      argument :token, String, required: true
+    end
     field :categories, [Types::CategoryType], null: false
     field :category, Types::CategoryType, null: true do
       description 'Procura uma categoria por ID'
@@ -52,6 +56,10 @@ module Types
 
     def user_by_email(email:)
       User.find_by(email: email)
+    end
+
+    def user_by_token(token:)
+      User.find_by(authentication_token: token)
     end
 
     def categories

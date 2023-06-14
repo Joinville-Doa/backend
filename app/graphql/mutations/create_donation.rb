@@ -13,11 +13,12 @@ module Mutations
     argument :image_three, String, required: false
     argument :image_four, String, required: false
     argument :image_five, String, required: false
+    argument :has_whatsapp, Boolean, required: true
 
     field :donation, Types::DonationType, null: true
     field :message, [String], null: false
 
-    def resolve(title:, description:, user_id:, phone_contact:, new_product:, category_id:, image_one:, image_two: nil, image_three: nil, image_four: nil, image_five: nil)
+    def resolve(title:, description:, user_id:, phone_contact:, new_product:, category_id:, has_whatsapp:, image_one:, image_two: nil, image_three: nil, image_four: nil, image_five: nil)
       new_donation = Donation.new(
         title: name_normalize(title),
         description: description,
@@ -25,6 +26,7 @@ module Mutations
         phone_contact: regex_phone(phone_contact),
         new_product: new_product,
         category_id: category_id,
+        has_whatsapp: has_whatsapp,
         image_one: image_one,
         image_two: image_two,
         image_three: image_three,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_003400) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_010154) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_003400) do
     t.string "image_four"
     t.string "image_five"
     t.integer "category_id"
+    t.boolean "has_whatsapp", default: false, null: false
     t.index ["category_id"], name: "index_donations_on_category_id"
     t.index ["user_id"], name: "index_donations_on_user_id"
   end
