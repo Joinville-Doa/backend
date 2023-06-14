@@ -8,15 +8,15 @@ module Types
     field :new_product, Boolean, null: false
     field :created_at, String, null: false
     field :updated_at, String, null: false
-    field :image_one, String, null: false
-    field :image_two, String, null: false
-    field :image_three, String, null: false
-    field :image_four, String, null: false
-    field :image_five, String, null: false
     field :total, Integer, null: false
     field :limit, Integer, null: false
     field :offset, Integer, null: false
     field :category_id, ID, null: false
     field :has_whatsapp, Boolean, null: false
+    field :image_one, String
+    field :image_two, String
+    field :image_three, String
+    field :image_four, String
+    field :image_five, String
   end
 end
