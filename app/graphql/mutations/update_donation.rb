@@ -6,8 +6,10 @@ module Mutations
     argument :title, String, required: true
     argument :description, String, required: true
     argument :user_id, ID, required: true
+    argument :category_id, ID, required: true
     argument :phone_contact, String, required: true
     argument :new_product, Boolean, required: true
+    argument :has_whatsapp, Boolean, required: true
     argument :image_one, String, required: true
     argument :image_two, String, required: false
     argument :image_three, String, required: false
@@ -17,7 +19,7 @@ module Mutations
     field :donation, Types::DonationType, null: true
     field :message, [String], null: false
 
-    def resolve(id:, title:, description:, user_id:, phone_contact:, new_product:, image_one:, image_two: nil, image_three: nil, image_four: nil, image_five: nil)
+    def resolve(id:, title:, description:, user_id:, phone_contact:, new_product:, category_id:, has_whatsapp:, image_one:, image_two: nil, image_three: nil, image_four: nil, image_five: nil)
       donation = Donation.find_by(id: id) rescue nil
 
       if donation.present?
@@ -25,8 +27,10 @@ module Mutations
           title: name_normalize(title),
           description: description,
           user_id: user_id,
+          category_id: category_id,
           phone_contact: regex_phone(phone_contact),
           new_product: new_product,
+          has_whatsapp: has_whatsapp,
           image_one: image_one,
           image_two: image_two,
           image_three: image_three,
@@ -36,7 +40,7 @@ module Mutations
 
         { donation: donation, message: ["Classificado atualizado com sucesso"] }
       else
-        { donation: nil, message: ["Houve um erro ao atualizar o classificado"] }
+        { donation: nil, message: ["Não foi possível localizar a doação"] }
       end
     end
   end

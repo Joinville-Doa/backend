@@ -8,12 +8,12 @@ module Mutations
     argument :category_id, ID, required: true
     argument :phone_contact, String, required: true
     argument :new_product, Boolean, required: true
+    argument :has_whatsapp, Boolean, required: true
     argument :image_one, String, required: true
     argument :image_two, String, required: false
     argument :image_three, String, required: false
     argument :image_four, String, required: false
     argument :image_five, String, required: false
-    argument :has_whatsapp, Boolean, required: true
 
     field :donation, Types::DonationType, null: true
     field :message, [String], null: false
