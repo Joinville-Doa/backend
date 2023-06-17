@@ -36,6 +36,7 @@ end
     phone_contact: Faker::PhoneNumber.phone_number,
     new_product: Faker::Boolean.boolean,
     has_whatsapp: Faker::Boolean.boolean,
+    category_id: Category.all.sample.id,
     image_one: Faker::Avatar.image,
     image_two: Faker::Avatar.image,
     image_three: Faker::Avatar.image,
