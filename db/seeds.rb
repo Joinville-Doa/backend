@@ -35,6 +35,7 @@ end
     description: Faker::Lorem.paragraph,
     phone_contact: Faker::PhoneNumber.phone_number,
     new_product: Faker::Boolean.boolean,
+    has_whatsapp: Faker::Boolean.boolean,
     image_one: Faker::Avatar.image,
     image_two: Faker::Avatar.image,
     image_three: Faker::Avatar.image,
