@@ -48,6 +48,15 @@ module Mutations
       def regex_document_number(document_number)
         document_number.gsub(/[^0-9]/, '')
       end
+
+      def validate_password_is_equal_in_user(inputs)
+        password = inputs[:password]
+        user = inputs[:current_user]
+
+        if user.present? && !user.valid_password?(password)
+          raise GraphQL::ExecutionError, "Senha incorreta"
+        end
+      end
     end
   end
 end
