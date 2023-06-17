@@ -1,7 +1,6 @@
 require 'faker'
 
 # Create 100 fake users
-
 10.times do
   password =  Faker::Internet.password(min_length: 6)
   User.create!(
@@ -18,10 +17,24 @@ require 'faker'
   puts "User #{User.last.name} created"
 end
 
-# Create 10 categories
-10.times do
+#Create categories
+categories = [
+  "Alimentos",
+  "Roupas",
+  "Calçados",
+  "Móveis",
+  "Eletrodomésticos",
+  "Eletroeletrônicos",
+  "Brinquedos",
+  "Livros",
+  "Ferramentas",
+  "Itens para pets",
+  "Peças Automotivas",
+  "Outros"
+]
+categories.each do |category|
   Category.create!(
-    name: Faker::Lorem.word,
+    name: category
   )
 
   puts "Category #{Category.last.name} created"
@@ -36,6 +49,7 @@ end
     phone_contact: Faker::PhoneNumber.phone_number,
     new_product: Faker::Boolean.boolean,
     has_whatsapp: Faker::Boolean.boolean,
+    category_id: Category.all.sample.id,
     image_one: Faker::Avatar.image,
     image_two: Faker::Avatar.image,
     image_three: Faker::Avatar.image,
