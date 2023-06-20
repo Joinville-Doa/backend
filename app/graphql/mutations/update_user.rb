@@ -20,8 +20,8 @@ module Mutations
 
       validate_password(password: attributes[:password], password_confirmation: attributes[:password_confirmation])
       validate_password_is_equal_in_user(password: attributes[:password], current_user: current_user)
-      validate_email(email: attributes[:email], current_user: current_user)
-      valide_document_number(document_number: attributes[:document_number], current_user: current_user)
+      validate_email(email: attributes[:email], current_user: current_user) if attributes[:email] != current_user.email
+      valide_document_number(document_number: attributes[:document_number], current_user: current_user) if attributes[:document_number] != current_user.document_number
       validate_accept_terms_of_use(accept_terms_of_use: attributes[:accept_terms_of_use])
 
       attributes[:name] = name_normalize(attributes[:name])
