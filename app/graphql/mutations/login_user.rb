@@ -14,7 +14,7 @@ module Mutations
         token = generate_token(user)
         { user: user, token: token, message: ["Login realizado com sucesso"] }
       else
-        { user: nil, token: nil, message: ['Credenciais inválidas'] }
+        { user: nil, token: nil, message: ['E-mail ou Senha inválido.'] }
       end
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
