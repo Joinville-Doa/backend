@@ -76,7 +76,7 @@ module Types
     end
 
     def donations(limit: nil, offset: nil)
-      donations = Donation.all
+      donations = Donation.all.order(created_at: :desc)
       total = donations.count
 
       if limit && offset
